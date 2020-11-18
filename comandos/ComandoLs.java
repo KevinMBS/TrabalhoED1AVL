@@ -29,7 +29,8 @@ public class ComandoLs implements Funcao{
                 }else if(!(aux instanceof Diretorio)){ //Ou seja, se ele for um arquivo base não é possivel imprir seu conteudo no nosso sistema
                      System.out.println("./");
                 }
-                printArvoreRecursivo(".", ((Diretorio)aux).getDir(),aux.getChave());
+                //printArvoreRecursivo(".", ((Diretorio)aux).getDir(),aux.getChave());
+                printArvoreRecursivo(".", ((Diretorio)aux).getDir(),resComando[2]);
             }else{
                 dir = arvore;       
                 printArvoreRecursivo(".", dir,"");
