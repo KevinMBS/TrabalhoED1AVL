@@ -20,6 +20,9 @@ public class ComandoLs implements Funcao{
         }else if(resComando[1].equals("-R")){
             //recursiva
             if(resComando.length == 3){
+                if(resComando[2].endsWith("/")){
+                    resComando[2] = resComando[2].substring(0, resComando[2].length()-1);
+                }
                 aux = arvore.interpretaPath(resComando[2]);
                 if(((Diretorio)aux).getDir().getRaiz() == null){ //Diretorio não existe
                     throw new DiretorioInexistenteLSException(resComando[0], resComando[1]);
@@ -34,6 +37,9 @@ public class ComandoLs implements Funcao{
 
         }else{
             //não recursiva
+            if(resComando[1].endsWith("/")){
+                resComando[1] = resComando[1].substring(0, resComando[1].length()-1);
+            }
             aux = arvore.interpretaPath(resComando[1]);
             if(((Diretorio)aux).getDir() == null){ //Diretorio não existe
                 throw new DiretorioInexistenteLSException(resComando[0], resComando[1]);

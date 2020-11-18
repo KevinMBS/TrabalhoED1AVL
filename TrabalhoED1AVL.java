@@ -11,7 +11,6 @@ public class TrabalhoED1AVL {
         String op;
         ArvoreAVL arvore = new ArvoreAVL();
         
-        System.out.println("Bem vindo ao terminal, digite um comando para iniciar:");
         op = input.nextLine();
         
         while(!op.equals("exit")){
