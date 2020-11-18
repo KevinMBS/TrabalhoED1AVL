@@ -2,13 +2,13 @@ package TrabalhoED1AVL.elementos;
 
 public class Arquivo {
     private String chave;
-    private Arquivo esquerdo;
-    private Arquivo direito;
+    private Arquivo esquerdo, direito;
+    private int alt;
     
     public Arquivo(String chave){
         this.chave = chave;
         this.esquerdo = null;
-        this.esquerdo = null;
+        this.direito = null;
     }
 
     
@@ -35,5 +35,15 @@ public class Arquivo {
     public void setDireito(Arquivo direito) {
         this.direito = direito;
     }
+
+    public int getAlt() {
+        return alt;
+    }
+
+    public void setAlt(int alt) {
+        this.alt = alt;
+    }
+    
+    
     
 }

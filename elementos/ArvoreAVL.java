@@ -3,7 +3,9 @@ package TrabalhoED1AVL.elementos;
 import java.util.ArrayList;
 
 public class ArvoreAVL {
+    
     private Arquivo raiz;
+    
     public ArvoreAVL(){
         this.raiz = null;
     }
@@ -14,6 +16,78 @@ public class ArvoreAVL {
 
     public void setRaiz(Arquivo raiz) {
         this.raiz = raiz;
+    }
+    
+    //Metódos especificos para a arvore AVL
+    private int altura(Arquivo arq){
+        if(arq == null)
+            return -1;
+        
+        return arq.getAlt();
+    }
+    
+    private int fatorBalanceamento(Arquivo arq){
+        if(arq == null)
+            return 0;
+        
+        return altura(arq.getDireito()) - altura(arq.getEsquerdo());
+    }
+    
+    private Arquivo rotacaoDireita(Arquivo pai){
+        Arquivo filho = pai.getEsquerdo();
+        Arquivo neto = filho.getDireito();
+        
+        //Realiza a rotação
+        filho.setDireito(pai);
+        pai.setEsquerdo(neto);
+        
+        //Atualiza a altura desses nós
+        pai.setAlt(Math.max(altura(pai.getEsquerdo()), altura(pai.getDireito())) + 1);
+        filho.setAlt(Math.max(altura(filho.getEsquerdo()), altura(filho.getDireito())) + 1);
+        
+        return filho;
+    }
+    
+    private Arquivo rotacaoEsquerda(Arquivo pai){
+        Arquivo filho = pai.getDireito();
+        Arquivo neto = filho.getEsquerdo();
+        
+        //Realiza a rotação
+        filho.setEsquerdo(pai);
+        pai.setDireito(neto);
+        
+        //Atualiza a altura desses nós
+        pai.setAlt(Math.max(altura(pai.getEsquerdo()), altura(pai.getDireito())) + 1);
+        filho.setAlt(Math.max(altura(filho.getEsquerdo()), altura(filho.getDireito())) + 1);
+        
+        return filho;
+    }
+    
+    private Arquivo balanceiaAVL(Arquivo arq){
+        arq.setAlt(Math.max(altura(arq.getEsquerdo()), altura(arq.getDireito())) + 1);
+        int fb = fatorBalanceamento(arq);
+        
+        if(fb > 1){
+            if(altura(arq.getDireito().getDireito()) > altura(arq.getDireito().getEsquerdo())){
+                //Rotação simples para a esquerda
+                arq = rotacaoEsquerda(arq);
+            }else{
+                //Rotação dupla para a esquerda
+                arq.setDireito(rotacaoDireita(arq.getDireito()));
+                arq = rotacaoEsquerda(arq);
+            }
+        }else if(fb < -1){
+            if(altura(arq.getEsquerdo().getEsquerdo()) > altura(arq.getEsquerdo().getDireito())){
+                //Rotação simples para a direita
+                arq = rotacaoDireita(arq);
+            }else{
+                //Rotação dupla para a direita
+                arq.setEsquerdo(rotacaoEsquerda(arq.getEsquerdo()));
+                arq = rotacaoDireita(arq);
+            }
+        }
+        
+        return arq;
     }
     
     public Arquivo procuraArquivo(String chave){ //Serve mais para chamar o metodo recursivo
@@ -50,7 +124,7 @@ public class ArvoreAVL {
         }else if(chave.compareTo(atual.getChave()) > 0){
             atual.setDireito(addDiretorioRec(raiz.getDireito(), chave));
         }
-        return atual;
+        return balanceiaAVL(atual);
     }
     
     public void addArquivo(String chave){ //Serve mais para chamar o metodo recursivo
@@ -70,7 +144,7 @@ public class ArvoreAVL {
         }else if(chave.compareTo(atual.getChave()) > 0){
             atual.setDireito(addArquivoRec(raiz.getDireito(), chave));
         }
-        return atual;
+        return balanceiaAVL(atual);
     }
     
     public Arquivo interpretaPath(String path){ //Serve mais para chamar o metodo recursivo
