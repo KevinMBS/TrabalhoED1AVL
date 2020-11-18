@@ -174,7 +174,7 @@ public class ArvoreAVL {
             caminho = caminho.concat("/" + pasta);
         }
         
-        System.out.println("" + caminho);
+        System.out.println("" + caminho + " :");
         
         //Imprimindo e guardando em um array os nós desta arvore que são diretorios,portanto estes devem ser visitados
         dirsAvisitar = auxPrintArvoreRec(raiz);
