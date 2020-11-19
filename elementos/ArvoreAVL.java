@@ -171,6 +171,9 @@ public class ArvoreAVL {
         Arquivo raiz = arvore.getRaiz();
         ArrayList<Diretorio> dirsAvisitar = new ArrayList<>();
         if(!pasta.equals("")){
+            if(pasta.equals(" ")){
+                pasta = "";
+            }
             caminho = caminho.concat("/" + pasta);
         }
         
