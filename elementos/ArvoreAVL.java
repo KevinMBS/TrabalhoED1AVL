@@ -170,14 +170,16 @@ public class ArvoreAVL {
     public static void printArvoreRecursivo(String caminho, ArvoreAVL arvore, String pasta){
         Arquivo raiz = arvore.getRaiz();
         ArrayList<Diretorio> dirsAvisitar = new ArrayList<>();
-        if(!pasta.equals("")){
-            if(pasta.equals(" ")){
-                pasta = "";
-            }
+        if(!pasta.equals("")&&!pasta.equals(" ")){            
             caminho = caminho.concat("/" + pasta);
         }
         
-        System.out.println("" + caminho + " :");
+        if(pasta.equals(" ")){
+            System.out.println("" + caminho + "/" + " :");     
+        }else{
+            System.out.println("" + caminho + " :");
+        }
+        
         
         //Imprimindo e guardando em um array os nós desta arvore que são diretorios,portanto estes devem ser visitados
         dirsAvisitar = auxPrintArvoreRec(raiz);
